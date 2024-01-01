@@ -1,7 +1,22 @@
+:root {
+  --bg-color: #2a75bb;
+  --card-bg: #ffcb05;
+  --text-colour: #ddd;
+  --card-font: #000000;
+}
+
 body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  background: var(--bg-color);
+  color: var(--text-colour);
+  
+}
+
+img {
+  height: 200px;
+  aspect-ratio: 1;
 }
 
 #root {
@@ -10,14 +25,21 @@ body {
   align-items: center;
 }
 
+header {
+  text-align: center;
+}
+
 .game-container {
-  margin: 1rem 0;
+  margin: 4rem 0;
 }
 
 .game-card {
-  border: 1px solid black;
+  /* border: 1px solid white; */
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 15%;
+  padding: 1rem;
+  color: var(--card-font);
+  background: var(--card-bg);
 }
