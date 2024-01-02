@@ -4,5 +4,5 @@ export default function GameCard() {
       <img src="./#" alt="" />
       <p>Pikachu</p>
     </div>
-  )
+  );
 }

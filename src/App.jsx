@@ -10,14 +10,10 @@ function App() {
   return (
     <>
       <Header />
-      <Scores 
-      currentScore={currentScore}
-      highScore={highScore}
-      />
+      <Scores currentScore={currentScore} highScore={highScore} />
       <GameArea
-      currentScore={currentScore}
-      setCurrentScore={setCurrentScore}
-      setHighScore={setHighScore}
+        setCurrentScore={setCurrentScore}
+        setHighScore={setHighScore}
       />
     </>
   );

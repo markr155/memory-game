@@ -4,5 +4,5 @@ export default function Scores({ currentScore, highScore }) {
       <div id="high-score">High Score: {highScore}</div>
       <div id="current-score">Score: {currentScore}</div>
     </div>
-  )
+  );
 }

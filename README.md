@@ -35,9 +35,9 @@ if no, increment score, re-render cards in random order
 Components:
 Header, includes instruction text
 Score box
+
 - high score
 - current score
   Game Card
   -picture
   -text
-
