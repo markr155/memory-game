@@ -4,11 +4,21 @@ import Scores from "./Scores";
 import GameArea from "./GameArea";
 
 function App() {
+  const [currentScore, setCurrentScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+
   return (
     <>
       <Header />
-      <Scores />
-      <GameArea />
+      <Scores 
+      currentScore={currentScore}
+      highScore={highScore}
+      />
+      <GameArea
+      currentScore={currentScore}
+      setCurrentScore={setCurrentScore}
+      setHighScore={setHighScore}
+      />
     </>
   );
 }
