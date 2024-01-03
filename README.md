@@ -25,12 +25,9 @@ pic SVG: sprites.other.dream_world.front_default
 
 Flow:
 
-Pick initialNum random pokemon
-get text picture
-display cards in random order
-On click - check if pokemon has been clicked before
-if yes, game end, display score, update high score if current score higher and restart button (in modal)
-if no, increment score, re-render cards in random order
+Have list of all pokemon
+pick random pokemon num = 4 + 2 * currentround
+render list of pokemon in a random order
 
 Components:
 Header, includes instruction text
