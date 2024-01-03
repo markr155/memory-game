@@ -1,8 +1,8 @@
-export default function GameCard() {
+export default function GameCard({ name, img }) {
   return (
     <div className="game-card">
-      <img src="./#" alt="" />
-      <p>Pikachu</p>
+      <img src={img} alt={name} />
+      <p>{name}</p>
     </div>
   );
 }

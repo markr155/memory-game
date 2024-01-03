@@ -1,6 +1,7 @@
 :root {
   --bg-color: #2a75bb;
   --card-bg: #ffcb05;
+  --accent-colour: #d10000;
   --text-colour: #ddd;
   --card-font: #000000;
 }
@@ -29,6 +30,9 @@ header {
 }
 
 .game-container {
+  display: flex;
+  width: 90vw;
+  justify-content: center;
   margin: 4rem 0;
 }
 
@@ -39,6 +43,11 @@ header {
   align-items: center;
   border-radius: 15%;
   padding: 1rem;
+  margin: 1rem;
   color: var(--card-font);
   background: var(--card-bg);
+}
+
+.game-card:hover {
+  box-shadow: var(--accent-colour) 0 0 20px 2px;
 }

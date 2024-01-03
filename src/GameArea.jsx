@@ -26,7 +26,7 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
   }, []);
 
   async function newCurrentPokemon() {
-    if (!allPokemon[0]) return // Early return if pokemon list is empty
+    if (!allPokemon[0]) return; // Early return if pokemon list is empty
     const numInitialPokemon = 4;
     const plusPokemonPerRound = 2;
     const numTotalPokemon =
@@ -38,19 +38,24 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
       const randomIndex = Math.floor(Math.random() * allPokemon.length);
       const newURL = allPokemon[randomIndex].url;
       const newPokemonPromise = fetch(newURL)
-      .then(response => response.json())
-      .catch(error => {
-        console.error('Fetching Pokemon failed:', error);
-        return null;
-      })
+        .then((response) => response.json())
+        .catch((error) => {
+          console.error("Fetching Pokemon failed:", error);
+          return null;
+        });
       pokemonPromises.push(newPokemonPromise);
     }
 
     const resolvedPokemon = await Promise.all(pokemonPromises);
     for (const pokemonData of resolvedPokemon) {
       if (pokemonData) {
-        const newPokemon = {name: pokemonData.species.name, img: pokemonData.sprites.other["official-artwork"].front_default}
-        newPokemon.name = newPokemon.name[0].toUpperCase() + newPokemon.name.slice(1);
+        const newPokemon = {
+          name: pokemonData.species.name,
+          key: pokemonData.species.name,
+          img: pokemonData.sprites.front_default,
+        };
+        newPokemon.name =
+          newPokemon.name[0].toUpperCase() + newPokemon.name.slice(1);
         newCurrentRoundPokemon.push(newPokemon);
       }
     }
@@ -59,13 +64,22 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
 
   useEffect(() => {
     const newPokemonPromise = newCurrentPokemon();
-    newPokemonPromise.then((newPokemon) => {
-      setCurrentRoundPokemon(newPokemon);
-    })
-    .catch(error => console.error(error));
+    newPokemonPromise
+      .then((newPokemon) => {
+        setCurrentRoundPokemon(newPokemon);
+      })
+      .catch((error) => console.error(error));
   }, [currentRound, allPokemon]);
 
   console.log(currentRoundPokemon);
 
-  return <div className="game-container">{<GameCard />}</div>;
+  return (
+    <div className="game-container">
+      {currentRoundPokemon
+        ? currentRoundPokemon.map((pokemon) => (
+            <GameCard key={pokemon.key} name={pokemon.name} img={pokemon.img} />
+          ))
+        : "Loading..."}
+    </div>
+  );
 }
