@@ -31,7 +31,8 @@ header {
 
 .game-container {
   display: flex;
-  width: 90vw;
+  /* max-width: 800px; */
+  flex-wrap: wrap;
   justify-content: center;
   margin: 4rem 0;
 }

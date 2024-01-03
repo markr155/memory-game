@@ -35,6 +35,6 @@ Score box
 
 - high score
 - current score
-  Game Card
+  Game Card -- grid on card container
   -picture
   -text
