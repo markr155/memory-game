@@ -50,6 +50,7 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
     for (const pokemonData of resolvedPokemon) {
       if (pokemonData) {
         const newPokemon = {name: pokemonData.species.name, img: pokemonData.sprites.other["official-artwork"].front_default}
+        newPokemon.name = newPokemon.name[0].toUpperCase() + newPokemon.name.slice(1);
         newCurrentRoundPokemon.push(newPokemon);
       }
     }
