@@ -26,7 +26,7 @@ pic SVG: sprites.other.dream_world.front_default
 Flow:
 
 Have list of all pokemon
-pick random pokemon num = 4 + 2 * currentround
+pick random pokemon num = 4 + 2 \* currentround
 render list of pokemon in a random order
 
 Components:
