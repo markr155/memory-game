@@ -25,11 +25,15 @@ export default function GameArea({
       console.error("Network error", error);
     }
   }
+  useEffect(() => {
+    getPokemon();
+  }, []);
 
-  function newCurrentPokemon() {
-    const numInitialPokemonForGame = 4;
+
+  async function newCurrentPokemon() {
+    const numInitialPokemon = 4;
     const plusPokemonPerRound = 2;
-    const numTotalPokemon = numInitialPokemonForGame + (currentRound * plusPokemonPerRound);
+    const numTotalPokemon = numInitialPokemon + (currentRound * plusPokemonPerRound);
     const addPokemonToCurrentRound = [];
     
     for ( let i = 0; i < numTotalPokemon; i++) {
@@ -41,11 +45,10 @@ export default function GameArea({
   }
 
   useEffect(() => {
-    getPokemon();
-  }, []);
-
-  useEffect(() => {
-    setCurrentRoundPokemon(newCurrentPokemon());
+    const newPokemonPromise = newCurrentPokemon()
+    newPokemonPromise.then(newPokemon => {
+      setCurrentRoundPokemon(newPokemon);
+    });
   }, [currentRound, allPokemon])
   
   console.log(currentRoundPokemon)
