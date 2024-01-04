@@ -45,8 +45,8 @@ export default function GameArea({
 
   async function newCurrentPokemon() {
     if (!allPokemon[0]) return; // Early return if pokemon list is empty
-    const numInitialPokemon = 6;
-    const plusPokemonPerRound = 2;
+    const numInitialPokemon = 4;
+    const plusPokemonPerRound = 1;
     const numTotalPokemon =
       numInitialPokemon + currentRound * plusPokemonPerRound;
     const newCurrentRoundPokemon = [];
@@ -97,7 +97,6 @@ export default function GameArea({
   function onCardClick(id) {
     if (isRoundLoading) return;
     if (cardsClicked.includes(id)) {
-      console.log("Game Over");
       gameOver();
     } else {
       setCardsClicked((prevClicked) => [...prevClicked, id]);
@@ -132,7 +131,6 @@ export default function GameArea({
         currentPokemon[i] = currentPokemon[j];
         currentPokemon[j] = temp
       }
-      console.log(currentPokemon);
       return currentPokemon
     })
     
@@ -140,17 +138,20 @@ export default function GameArea({
 
   return (
     <div className="game-container">
-      {currentRoundPokemon
-        ? currentRoundPokemon.map((pokemon) => (
-            <GameCard
-              key={pokemon.key}
-              id={pokemon.key}
-              name={pokemon.name}
-              img={pokemon.img}
-              onClick={onCardClick}
-            />
-          ))
-        : "Loading..."}
-    </div>
+    {isRoundLoading ? (
+      "Loading..."
+    ) : (
+      currentRoundPokemon &&
+      currentRoundPokemon.map((pokemon) => (
+        <GameCard
+          key={pokemon.key}
+          id={pokemon.key}
+          name={pokemon.name}
+          img={pokemon.img}
+          onClick={onCardClick}
+        />
+      ))
+    )}
+  </div>
   );
 }
