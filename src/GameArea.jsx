@@ -35,9 +35,17 @@ export default function GameArea({
     getPokemon();
   }, []);
 
+  useEffect(() => {
+    resolveNewPokemon();
+  }, [currentRound, allPokemon]);
+
+  useEffect(() => {
+    nextRound();
+  }, [cardsClicked]);
+
   async function newCurrentPokemon() {
     if (!allPokemon[0]) return; // Early return if pokemon list is empty
-    const numInitialPokemon = 4;
+    const numInitialPokemon = 6;
     const plusPokemonPerRound = 2;
     const numTotalPokemon =
       numInitialPokemon + currentRound * plusPokemonPerRound;
@@ -84,9 +92,7 @@ export default function GameArea({
       .catch((error) => console.error(error));
   }
 
-  useEffect(() => {
-    resolveNewPokemon();
-  }, [currentRound, allPokemon]);
+ 
 
   function onCardClick(id) {
     if (isRoundLoading) return;
@@ -97,8 +103,7 @@ export default function GameArea({
       setCardsClicked((prevClicked) => [...prevClicked, id]);
       setCurrentScore((score) => score + 1);
     }
-    console.log(cardsClicked);
-    console.log(currentRound);
+    shufflePokemon();
   }
 
   function nextRound() {
@@ -117,9 +122,21 @@ export default function GameArea({
     setCurrentRound(0);
   }
 
-  useEffect(() => {
-    nextRound();
-  }, [cardsClicked]);
+
+  function shufflePokemon() {
+    setCurrentRoundPokemon((currentPokemon) => {
+      if(!currentPokemon) return null
+      for (let i = currentPokemon.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = currentPokemon[i];
+        currentPokemon[i] = currentPokemon[j];
+        currentPokemon[j] = temp
+      }
+      console.log(currentPokemon);
+      return currentPokemon
+    })
+    
+  }
 
   return (
     <div className="game-container">
