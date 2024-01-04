@@ -3,9 +3,6 @@ import GameCard from "./GameCard";
 
 export default function GameArea({
   setCurrentScore,
-  currentScore,
-  highScore,
-  setHighScore,
   currentRound,
   setCurrentRound,
   setIsOpen,
@@ -47,11 +44,10 @@ export default function GameArea({
     if (!allPokemon[0]) return; // Early return if pokemon list is empty
     const numInitialPokemon = 4;
     const plusPokemonPerRound = 1;
-    const numTotalPokemon =
+    const numTotalPokemon = (currentRound === 0) ? numInitialPokemon :
       numInitialPokemon + currentRound * plusPokemonPerRound;
     const newCurrentRoundPokemon = [];
     const pokemonPromises = [];
-
     for (let i = 0; i < numTotalPokemon; i++) {
       const randomIndex = Math.floor(Math.random() * allPokemon.length);
       const newURL = allPokemon[randomIndex].url;
@@ -133,7 +129,6 @@ export default function GameArea({
       }
       return currentPokemon
     })
-    
   }
 
   return (

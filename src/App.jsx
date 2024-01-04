@@ -21,8 +21,6 @@ function App() {
       <GameArea
         setCurrentScore={setCurrentScore}
         setHighScore={setHighScore}
-        currentScore={currentScore}
-        highScore={highScore}
         currentRound={currentRound}
         setCurrentRound={setCurrentRound}
         setIsOpen={setModalIsOpen}
