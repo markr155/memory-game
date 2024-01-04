@@ -74,14 +74,23 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
       .catch((error) => console.error(error));
   }, [currentRound, allPokemon]);
 
-  function checkIfCardClicked(id) {
+  function onCardClick(id) {
     if (cardsClicked.includes(id)) {
       console.log("Game Over");
       // gameOver();
     } else {
       setCardsClicked((prevClicked) => [...prevClicked, id]);
     }
+    nextRound();
     console.log(cardsClicked);
+    console.log(currentRound);
+  }
+
+  function nextRound() {
+    if (cardsClicked.length === currentRoundPokemon.length) {
+      setCurrentRound((current) => current + 1);
+      setCardsClicked([]);
+    }
   }
 
   return (
@@ -93,7 +102,7 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
               id={pokemon.key}
               name={pokemon.name}
               img={pokemon.img}
-              onClick={checkIfCardClicked}
+              onClick={onCardClick}
             />
           ))
         : "Loading..."}
