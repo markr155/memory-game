@@ -5,6 +5,7 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
   const [allPokemon, setAllPokemon] = useState([]);
   const [currentRound, setCurrentRound] = useState(0);
   const [currentRoundPokemon, setCurrentRoundPokemon] = useState([]);
+  const [cardsClicked, setCardsClicked] = useState([]);
 
   async function getPokemon() {
     try {
@@ -52,7 +53,9 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
         const newPokemon = {
           name: pokemonData.species.name,
           key: pokemonData.species.name,
-          img: pokemonData.sprites.front_default,
+          img:
+            pokemonData.sprites.other["official-artwork"].front_default ||
+            pokemonData.sprites.front_default,
         };
         newPokemon.name =
           newPokemon.name[0].toUpperCase() + newPokemon.name.slice(1);
@@ -71,13 +74,27 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
       .catch((error) => console.error(error));
   }, [currentRound, allPokemon]);
 
-  console.log(currentRoundPokemon);
+  function checkIfCardClicked(id) {
+    if (cardsClicked.includes(id)) {
+      console.log("Game Over");
+      // gameOver();
+    } else {
+      setCardsClicked((prevClicked) => [...prevClicked, id]);
+    }
+    console.log(cardsClicked);
+  }
 
   return (
     <div className="game-container">
       {currentRoundPokemon
         ? currentRoundPokemon.map((pokemon) => (
-            <GameCard key={pokemon.key} name={pokemon.name} img={pokemon.img} />
+            <GameCard
+              key={pokemon.key}
+              id={pokemon.key}
+              name={pokemon.name}
+              img={pokemon.img}
+              onClick={checkIfCardClicked}
+            />
           ))
         : "Loading..."}
     </div>

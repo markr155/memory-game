@@ -28,6 +28,9 @@ Flow:
 Have list of all pokemon
 pick random pokemon num = 4 + 2 \* currentround
 render list of pokemon in a random order
+on click, check if card has been clicked before
+if card has been clicked then game over, show reset modal
+if card has not been clicked, check if all cards are clicked
 
 Components:
 Header, includes instruction text
@@ -35,6 +38,6 @@ Score box
 
 - high score
 - current score
-  Game Card -- grid on card container
+  Game Card -- Look at making rows dynamic based on round
   -picture
   -text
