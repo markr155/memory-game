@@ -29,7 +29,9 @@ function App() {
         isOpen={modalIsOpen}
       />
       <GameOverModal 
+      setCurrentScore={setCurrentScore}
       currentScore={currentScore}
+      setHighScore={setHighScore}
       highScore={highScore}
       isOpen={modalIsOpen} 
       setIsOpen={setModalIsOpen} />

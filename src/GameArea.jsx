@@ -75,13 +75,17 @@ export default function GameArea({
     return newCurrentRoundPokemon;
   }
 
-  useEffect(() => {
+  function resolveNewPokemon(){
     const newPokemonPromise = newCurrentPokemon();
     newPokemonPromise
       .then((newPokemon) => {
         setCurrentRoundPokemon(newPokemon);
       })
       .catch((error) => console.error(error));
+  }
+
+  useEffect(() => {
+    resolveNewPokemon();
   }, [currentRound, allPokemon]);
 
   function onCardClick(id) {
@@ -102,16 +106,14 @@ export default function GameArea({
     if (cardsClicked.length === currentRoundPokemon.length) {
       setCurrentRound((current) => current + 1);
       setCardsClicked([]);
+      setIsRoundLoading(true);
     }
   }
 
   function gameOver() {
-    if (currentScore > highScore) {
-      setHighScore(currentScore);
-    }
     setCardsClicked([]);
     setIsOpen(true);
-    setCurrentScore(0);
+    resolveNewPokemon();
     setCurrentRound(0);
   }
 
