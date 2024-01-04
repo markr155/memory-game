@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import GameCard from "./GameCard";
 
-export default function GameArea({ setCurrentScore, setHighScore }) {
+export default function GameArea({
+  setCurrentScore,
+  currentScore,
+  highScore,
+  setHighScore,
+  currentRound,
+  setCurrentRound,
+  setIsOpen,
+  isOpen,
+}) {
   const [allPokemon, setAllPokemon] = useState([]);
-  const [currentRound, setCurrentRound] = useState(0);
   const [currentRoundPokemon, setCurrentRoundPokemon] = useState([]);
   const [cardsClicked, setCardsClicked] = useState([]);
+  const [isRoundLoading, setIsRoundLoading] = useState(true);
 
   async function getPokemon() {
     try {
@@ -62,6 +71,7 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
         newCurrentRoundPokemon.push(newPokemon);
       }
     }
+    setIsRoundLoading(false);
     return newCurrentRoundPokemon;
   }
 
@@ -75,23 +85,39 @@ export default function GameArea({ setCurrentScore, setHighScore }) {
   }, [currentRound, allPokemon]);
 
   function onCardClick(id) {
+    if (isRoundLoading) return;
     if (cardsClicked.includes(id)) {
       console.log("Game Over");
-      // gameOver();
+      gameOver();
     } else {
       setCardsClicked((prevClicked) => [...prevClicked, id]);
+      setCurrentScore((score) => score + 1);
     }
-    nextRound();
     console.log(cardsClicked);
     console.log(currentRound);
   }
 
   function nextRound() {
+    if (!currentRoundPokemon || cardsClicked.length === 0) return;
     if (cardsClicked.length === currentRoundPokemon.length) {
       setCurrentRound((current) => current + 1);
       setCardsClicked([]);
     }
   }
+
+  function gameOver() {
+    if (currentScore > highScore) {
+      setHighScore(currentScore);
+    }
+    setCardsClicked([]);
+    setIsOpen(true);
+    setCurrentScore(0);
+    setCurrentRound(0);
+  }
+
+  useEffect(() => {
+    nextRound();
+  }, [cardsClicked]);
 
   return (
     <div className="game-container">

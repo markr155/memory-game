@@ -31,9 +31,8 @@ render list of pokemon in a random order
 on click, check if card has been clicked before
 if card has been clicked then game over, show reset modal
 if card has not been clicked, check if all cards are clicked
-  if all cards clicked, next round
-    next round: increment round counter
-
+if all cards clicked, next round
+next round: increment round counter
 
 Components:
 Header, includes instruction text
